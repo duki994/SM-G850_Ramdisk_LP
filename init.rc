@@ -1211,3 +1211,9 @@ service ozcaninit /sbin/ozcan.sh
     user root
     oneshot
 
+# init duki994 post_boot script
+service postboot /sbin/post_boot.sh
+    class core
+    user root
+    oneshot
+
