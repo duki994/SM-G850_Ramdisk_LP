@@ -1,0 +1,49 @@
+#!/res/busybox sh
+
+export PATH=/res/asset:$PATH
+
+cat << CTAG
+{
+    name:Audio,
+    elements:[
+	{ SPane:{ 
+		title:"Jack Media Volume Control",
+		description:"Jack amplification increases volume only on headphones and headsets. The controlled input is the digital input volume for the audio DAC. Only audio considered as <Media playback> by the default ALSA profiles will be amplified."
+	}},
+	{ SSeekBar:{
+		description:"Jack left channel volume",
+		min:80, max:150, unit:"dB", weight:0.5, offset:128,
+		default:`cat /sys/class/misc/wolfson_control/headphone_left`,
+                action:"generic /sys/class/misc/wolfson_control/headphone_left"
+	}},
+	{ SSeekBar:{
+		description:"Jack right channel volume",
+		min:80, max:150, unit:"dB", weight:0.5, offset:128,
+		default:`cat /sys/class/misc/wolfson_control/headphone_right`,
+                action:"generic /sys/class/misc/wolfson_control/headphone_right"
+	}},
+	{ SCheckBox:{
+		description:"Mixes together left and right channels on the jack output.",
+		label:"Mono Mixer",
+		default:`cat /sys/class/misc/wolfson_control/switch_hp_mono`,
+                action:"generic /sys/class/misc/wolfson_control/switch_hp_mono"
+	}},
+	{ SPane:{ 
+		title:"Speaker Volume Control",
+		description:"Speaker amplification increases volume on the earpiece. Speaker volumes are expressed as deltas to Samsung's audio profiles, so not to completely override them."
+	}},
+	{ SSeekBar:{
+		title:"Earpiece speaker volume",
+		min:-8, max:16, unit:"dB", weight:0.5,
+		default:`cat /sys/class/misc/wolfson_control/earpiece_volume`,
+                action:"generic /sys/class/misc/wolfson_control/earpiece_volume"
+	}},
+	{ SSeekBar:{
+		title:"Main speaker volume",
+		min:-8, max:16, unit:"dB", weight:0.5,
+		default:`cat /sys/class/misc/wolfson_control/speaker_volume`,
+                action:"generic /sys/class/misc/wolfson_control/speaker_volume"
+	}},
+    ]
+}
+CTAG

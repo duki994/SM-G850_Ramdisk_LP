@@ -1207,13 +1207,13 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
 
 # init Ozcan Kernel
 service ozcaninit /sbin/ozcan.sh
-    class core
+    class late_start
     user root
     oneshot
 
 # init duki994 post_boot script
 service postboot /sbin/post_boot.sh
-    class core
+    class late_start
     user root
     oneshot
 
