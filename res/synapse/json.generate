@@ -1,4 +1,4 @@
-#!/res/busybox sh
+#!/sbin/busybox sh
 
 export PATH=/res/asset:$PATH
 

@@ -1,6 +1,4 @@
-#!/res/busybox sh
-
-export PATH=/res/asset:$PATH
+#!/sbin/busybox sh
 
 cat << CTAG
 {

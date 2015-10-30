@@ -1,6 +1,6 @@
-#!/system/bin/sh
+#!/sbin/busybox sh
 
-BB=/res/busybox;
+BB=/sbin/busybox;
 
 CONFIG_JSON=/res/synapse/config.json
 ACTION_SCRIPTS=/res/synapse/actions/
