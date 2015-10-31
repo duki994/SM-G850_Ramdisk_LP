@@ -32,6 +32,10 @@ PERMISSION_FIX()
 }
 PERMISSION_FIX;
 
+# Disable Knox
+$BB pm disable com.sec.knox.seandroid
+$BB setenforce 0
+
 # create init.d folder
 if [ ! -d /system/etc/init.d ]; then
 	mkdir -p /system/etc/init.d/
@@ -57,8 +61,8 @@ $BB echo "2" >  /sys/block/mmcblk0/queue/nomerges
 
 # Start any init.d scripts that may be present in the rom or added by the user
 MOUNT_RW;
-$BB chmod -R 755 /system/etc/init.d/;
+$BB chmod -R 755 /system/etc/init.d/
 
 # Start uci
 MOUNT_RW;
-$BB sh /res/synapse uci;
+$BB sh /res/synapse uci

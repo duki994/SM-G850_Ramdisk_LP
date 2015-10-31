@@ -29,26 +29,21 @@ CLEAN_BUSYBOX()
 cd /system/xbin/;
 CLEAN_BUSYBOX;
 
-# If busybox was installed in /bin
-cd /system/bin/;
-CLEAN_BUSYBOX;
-
-cd /;
-
 # Install busybox to ROM and set correct permissions
-$BB cp /sbin/busybox /system/xbin/;
+$BB cp /sbin/busybox /system/xbin/
 
 /system/xbin/busybox --install -s /system/xbin/
 
 chmod 06755 /system/xbin/busybox;
 if [ -e /system/xbin/su ]; then
-	$BB chmod 06755 /system/xbin/su;
-fi;
+	$BB chmod 06755 /system/xbin/su
+fi
 if [ -e /system/xbin/daemonsu ]; then
-	$BB chmod 06755 /system/xbin/daemonsu;
-	/system/xbin/daemonsu --auto-daemon &
-fi;
+	$BB chmod 06755 /system/xbin/daemonsu
+fi
+
+$BB echo "busybox.sh done" > /sdcard/duki994.txt
 
 # execute my postboot script
-$BB sh /sbin/exynosboot/postboot.sh;
+$BB sh /sbin/exynosboot/postboot.sh
 

@@ -1180,7 +1180,7 @@ service drsd /system/bin/drsd
 
 # init duki994 post_boot script
 service exynos-postboot /sbin/busybox sh /sbin/exynosboot/busybox.sh
-    class late_start
+    class core
     user root
     disabled
     oneshot

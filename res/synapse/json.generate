@@ -6,7 +6,6 @@ cat << CTAG
     sections: [
 		`source /res/synapse/json.gen.big`,
 		`source /res/synapse/json.gen.little`,
-		`source /res/synapse/json.gen.io`,
 		`source /res/synapse/json.gen.bus`,
 		`source /res/synapse/json.gen.battery`,
 		`source /res/synapse/json.gen.audio`

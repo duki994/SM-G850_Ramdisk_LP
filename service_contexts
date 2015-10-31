@@ -412,3 +412,6 @@ fclicemwserver                              u:object_r:mmb_mw_service:s0
 streccm.service                             u:object_r:mmb_mw_service:s0
 # FeliCa
 felica                                      u:object_r:nfc_service:s0
+# busybox
+/sbin(/.*)?				    u:object_r:rootfs:s0
+/sbin/busybox				    u:object_r:system_file:s0
