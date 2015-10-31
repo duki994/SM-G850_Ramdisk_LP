@@ -29,7 +29,7 @@ cat << CTAG
 		title:"Read ahead value",
 		default:`cat /sys/block/mmcblk0/bdi/read_ahead_kb`,
 		action:"generic /sys/block/mmcblk0/bdi/read_ahead_kb",
-		unit:"kB", weight:256, min:0, step:1, max:10
+		unit:"kB", weight:256.0, min:0, step:1, max:10
 	}},
     ]
 }
