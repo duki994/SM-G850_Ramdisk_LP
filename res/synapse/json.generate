@@ -1,7 +1,5 @@
 #!/sbin/busybox sh
 
-export PATH=/res/asset:$PATH
-
 cat << CTAG
 
 {
