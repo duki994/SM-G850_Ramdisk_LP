@@ -26,7 +26,7 @@ PERMISSION_FIX()
 	$BB chown -R root:root /lib;
 	$BB chmod -R 777 /tmp/; # for annoying tmp-mksh errors
 	$BB chmod -R 775 /res/;	# for Synapse
-	$BB chmod -R 06755 /sbin/ext/;
+	$BB chmod -R 06755 /sbin/exynosboot/; # for my scripts
 	$BB chmod 06755 /sbin/busybox;
 	$BB chmod 06755 /system/xbin/busybox;
 }
@@ -46,7 +46,7 @@ $BB chmod -R 777 /res/*
 # 500 ms scanning
 $BB echo "500" > /sys/kernel/mm/uksm/sleep_millisecs
 # medium cpu gov
-echo "medium" > /sys/kernel/mm/uksm/cpu_governor
+$BB echo "medium" > /sys/kernel/mm/uksm/cpu_governor
 ########################
 
 
