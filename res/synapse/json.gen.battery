@@ -5,10 +5,13 @@ cat << CTAG
     name:Battery,
     elements:[
 	{ SDescription:{ 
-		description:"Device charging currents are composed of input current coming into the device (Nominal 5V) and charge current fed to the battery (Battery Charge Voltage). Charger detection divides charging cable types into several categories as described below. If charging current exceeds input load, then charging current is dynamically adjusted. For avoiding battery deterioration, charging currents of less than 0.7 Coloumb are advised; ex. 2600mAh (Capacity) * 0.7C = ~1820mA."
+		description:"Device charging currents are composed of input current coming into the device (Nominal 5V) and charge current fed to the battery (Battery Charge Voltage). Charger detection divides charging cable types into several categories as described below. If charging current exceeds input load, then charging current is dynamically adjusted. For avoiding battery deterioration, charging currents of less than 0.7 Coloumb are advised; ex. 2600mAh (Capacity) * 0.7C = ~1820mA. If input current shows zero while charging your device does not support in kernel driver input current reading, only chip can read it."
 	}},
 	{ SLiveLabel:{
                   action:"charge-source"
+        }},
+	{ SLiveLabel:{
+                  action:"echo \"Input: \$(cat /sys/bus/platform/drivers/sec-battery/battery.26/power_supply/battery/chg_current_adc)mA\""
         }},
 	{ SLiveLabel:{
                   action:"echo \"Average: \$(cat /sys/bus/platform/drivers/sec-battery/battery.26/power_supply/battery/current_avg)mA\""
@@ -16,7 +19,12 @@ cat << CTAG
 	{ SLiveLabel:{
                   action:"echo \"Now: \$(cat /sys/bus/platform/drivers/sec-battery/battery.26/power_supply/battery/current_now)mA\""
         }},
-
+	{ SDescription:{
+		description:"Current battery voltage expressed in microvolts. For example 4000000uV is 4000mV, and that is 4V"
+	}},
+	{ SLiveLabel:{
+		action:"echo \"Now: \$(cat /sys/bus/platform/drivers/sec-battery/battery.26/power_supply/battery/voltage_now)uV\""
+	}},
 	{ SDescription:{ 
 		description:"Input is the live current limit coming through the USB port into the device at 5V. Charge is the desired target current to charge the battery. Now is the actual current limit applied to the battery."
 	}},
@@ -29,14 +37,14 @@ cat << CTAG
 	}},
 	{ SSeekBar:{
 		title:"AC/Mains Input Current",
-		min:400, max:1390, unit:"mA", step:50,
+		min:300, max:1350, unit:"mA", step:50,
 		default:`cat /sys/bus/platform/drivers/sec-battery/battery.26/ac_input`,
                 action:"generic /sys/bus/platform/drivers/sec-battery/battery.26/ac_input"
 	}},
 	{ SSeekBar:{
 		title:"AC/Mains Charge Current",
 		description:"AC or mains charge current supplied to battery during charging.",
-		min:400, max:1390, unit:"mA", step:50,
+		min:300, max:1350, unit:"mA", step:50,
 		default:`cat /sys/bus/platform/drivers/sec-battery/battery.26/ac_charge`,
                 action:"generic /sys/bus/platform/drivers/sec-battery/battery.26/ac_charge"
 	}},
@@ -49,14 +57,14 @@ cat << CTAG
 	}},
 	{ SSeekBar:{
 		title:"SDP Input Current",
-		min:400, max:1390, unit:"mA", step:25,
+		min:300, max:1350, unit:"mA", step:25,
 		default:`cat /sys/bus/platform/drivers/sec-battery/battery.26/sdp_input`,
                 action:"generic /sys/bus/platform/drivers/sec-battery/battery.26/sdp_input"
 	}},
 	{ SSeekBar:{
 		title:"SDP Charge Current",
 		description:"NOTE: SDP charge limit serves as a global minima for ALL charge currents except MHL currents, overriding their respective value if they are inferior!",
-		min:400, max:1390, unit:"mA", step:25,
+		min:300, max:1350, unit:"mA", step:25,
 		default:`cat /sys/bus/platform/drivers/sec-battery/battery.26/sdp_charge`,
                 action:"generic /sys/bus/platform/drivers/sec-battery/battery.26/sdp_charge"
 	}},
@@ -66,13 +74,13 @@ cat << CTAG
 	}},
 	{ SSeekBar:{
 		title:"DCP Input Current",
-		min:400, max:1390, unit:"mA", step:50,
+		min:300, max:1350, unit:"mA", step:50,
 		default:`cat /sys/bus/platform/drivers/sec-battery/battery.26/dcp_input`,
                 action:"generic /sys/bus/platform/drivers/sec-battery/battery.26/dcp_input"
 	}},
 	{ SSeekBar:{
 		title:"DCP Charge Current",
-		min:400, max:1390, unit:"mA", step:50,
+		min:300, max:1350, unit:"mA", step:50,
 		default:`cat /sys/bus/platform/drivers/sec-battery/battery.26/dcp_charge`,
                 action:"generic /sys/bus/platform/drivers/sec-battery/battery.26/dcp_charge"
 	}},
@@ -82,13 +90,13 @@ cat << CTAG
 	}},
 	{ SSeekBar:{
 		title:"CDP Input Current",
-		min:400, max:1390, unit:"mA", step:50,
+		min:300, max:1350, unit:"mA", step:50,
 		default:`cat /sys/bus/platform/drivers/sec-battery/battery.26/cdp_input`,
                 action:"generic /sys/bus/platform/drivers/sec-battery/battery.26/cdp_input"
 	}},
 	{ SSeekBar:{
 		title:"CDP Charge Current",
-		min:400, max:1390, unit:"mA", step:50,
+		min:300, max:1350, unit:"mA", step:50,
 		default:`cat /sys/bus/platform/drivers/sec-battery/battery.26/cdp_charge`,
                 action:"generic /sys/bus/platform/drivers/sec-battery/battery.26/cdp_charge"
 	}},
@@ -114,13 +122,13 @@ cat << CTAG
 	}},
 	{ SSeekBar:{
 		title:"Misc Input Current",
-		min:100, max:1390, unit:"mA", step:50,
+		min:100, max:1350, unit:"mA", step:50,
 		default:`cat /sys/bus/platform/drivers/sec-battery/battery.26/so_limit_input`,
                 action:"generic /sys/bus/platform/drivers/sec-battery/battery.26/so_limit_input"
 	}},
 	{ SSeekBar:{
 		title:"Misc Charge Current",
-		min:100, max:1390, unit:"mA", step:50,
+		min:100, max:1350, unit:"mA", step:50,
 		default:`cat /sys/bus/platform/drivers/sec-battery/battery.26/so_limit_charge`,
                 action:"generic /sys/bus/platform/drivers/sec-battery/battery.26/so_limit_charge"
 	}},

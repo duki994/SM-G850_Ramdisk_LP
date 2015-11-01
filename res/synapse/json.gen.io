@@ -2,9 +2,8 @@
 
 cat << CTAG
 {
-    name:I/O,
+    name:"I/O",
     elements:[
-    
 	{ SPane:{
 		title:"I/O scheduler choose",
         }},
@@ -12,7 +11,7 @@ cat << CTAG
 		title: "I/O sched",
 		description:"Set desired I/O sched",
 		default:deadline,
-		action:"generic /sys/block/mmcblk0/queue/scheduler",
+		action:"ioset scheduler",
 		values:[
 		     noop,
 		     deadline,
@@ -28,9 +27,8 @@ cat << CTAG
 	{ SSeekBar:{
 		title:"Read ahead value",
 		default:`cat /sys/block/mmcblk0/bdi/read_ahead_kb`,
-		action:"generic /sys/block/mmcblk0/bdi/read_ahead_kb",
-		unit:"kB", weight:256.0, min:0, step:1, max:10
+		action:"ioset queue read_ahead_kb",
+		unit:"kB", min:128, step:128, max:4096
 	}},
     ]
 }
-CTAG

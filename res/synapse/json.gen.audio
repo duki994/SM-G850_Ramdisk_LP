@@ -43,7 +43,7 @@ cat << CTAG
                 action:"generic /sys/class/misc/wolfson_control/speaker_volume"
 	}},
 	{ SPane:{
-		title:"Headphone equalizer controls"
+		title:"Headphone equalizer controls",
 		description:"Wolfson hardware equalizer controls for headphones"
 	}},
 	{ SCheckBox:{
@@ -83,7 +83,7 @@ cat << CTAG
 		action:"generic /sys/class/misc/wolfson_control/eq_hp_gain_5"
 	}},
 	{ SPane:{
-		title:"Speaker equalizer controls"
+		title:"Speaker equalizer controls",
 		description:"Wolfson hardware equalizer controls for speaker"
 	}},
 	{ SCheckBox:{
