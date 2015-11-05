@@ -47,8 +47,8 @@ MOUNT_RW;
 $BB chmod -R 777 /res/*
 
 #### UKSM tuning #####
-# 500 ms scanning
-$BB echo "500" > /sys/kernel/mm/uksm/sleep_millisecs
+# 1000 ms scanning
+$BB echo "1000" > /sys/kernel/mm/uksm/sleep_millisecs
 # medium cpu gov
 $BB echo "medium" > /sys/kernel/mm/uksm/cpu_governor
 ########################
