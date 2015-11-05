@@ -5,13 +5,10 @@ cat << CTAG
     name:Battery,
     elements:[
 	{ SDescription:{ 
-		description:"Device charging currents are composed of input current coming into the device (Nominal 5V) and charge current fed to the battery (Battery Charge Voltage). Charger detection divides charging cable types into several categories as described below. If charging current exceeds input load, then charging current is dynamically adjusted. For avoiding battery deterioration, charging currents of less than 0.7 Coloumb are advised; ex. 2600mAh (Capacity) * 0.7C = ~1820mA. If input current shows zero while charging your device does not support in kernel driver input current reading, only chip can read it."
+		description:"Device charging currents are composed of input current coming into the device (Nominal 5V) and charge current fed to the battery (Battery Charge Voltage). Charger detection divides charging cable types into several categories as described below. If charging current exceeds input load, then charging current is dynamically adjusted. For avoiding battery deterioration, charging currents of less than 0.7 Coloumb are advised; ex. 2600mAh (Capacity) * 0.7C = ~1820mA."
 	}},
 	{ SLiveLabel:{
                   action:"charge-source"
-        }},
-	{ SLiveLabel:{
-                  action:"echo \"Input: \$(cat /sys/bus/platform/drivers/sec-battery/battery.26/power_supply/battery/chg_current_adc)mA\""
         }},
 	{ SLiveLabel:{
                   action:"echo \"Average: \$(cat /sys/bus/platform/drivers/sec-battery/battery.26/power_supply/battery/current_avg)mA\""
