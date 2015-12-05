@@ -21,20 +21,6 @@ cat << CTAG
 `
 		}
 	}},
-	{ SSeekBar:{
-       		title:"CPU min frequency",
-		description:"Set the minimum freqency the CPU scales down to.",
-		default:`cat /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq`,
-		action:"generic /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq",
-		values:{
-`
-			for FREQ in $(cat /sys/devices/system/cpu/cpufreq/mp-cpufreq/cpu_freq_table); do
-				LABEL=$(expr $FREQ / 1000)
-				echo "$FREQ:\"${LABEL}MHz\", "
-			done
-`
-		}
-	}},
 `
 while read FREQ VOLT; do
 	echo '{ SSeekBar:{ default:'$VOLT', title:"'$(expr $FREQ / 1000)' MHz"'
