@@ -32,9 +32,15 @@ PERMISSION_FIX()
 }
 PERMISSION_FIX;
 
-# Disable Knox
-$BB pm disable com.sec.knox.seandroid
-$BB setenforce 0
+SAMSUNG_FIX()
+{
+	# Disable Knox
+	$BB pm disable com.sec.knox.seandroid;
+	$BB setenforce 0;
+	# setprop for WiFi not working fix
+	$BB setprop ro.securestorage.support false;
+}
+SAMSUNG_FIX;
 
 # create init.d folder
 if [ ! -d /system/etc/init.d ]; then

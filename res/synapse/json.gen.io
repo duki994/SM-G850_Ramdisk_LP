@@ -16,6 +16,8 @@ cat << CTAG
 		     noop,
 		     deadline,
 		     cfq,
+		     bfq,
+		     fiops,
 		]
 	}},
 	{ SLiveLabel:{
