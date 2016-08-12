@@ -11,6 +11,7 @@ cat << CTAG
 		`source /res/synapse/json.gen.battery`,
 		`source /res/synapse/json.gen.audio`,
 		`source /res/synapse/json.gen.io`,
+		`source /res/synapse/json.gen.hmp`,
 		`source /res/synapse/json.gen.misc`
     ]
 }

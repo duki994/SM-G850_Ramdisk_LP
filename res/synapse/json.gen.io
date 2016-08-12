@@ -19,6 +19,7 @@ cat << CTAG
 		     bfq,
 		     fiops,
 		     row,
+		     zen,
 		]
 	}},
 	{ SLiveLabel:{
