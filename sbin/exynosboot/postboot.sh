@@ -52,18 +52,41 @@ fi;
 MOUNT_RW;
 $BB chmod -R 777 /res/*
 
-#### UKSM tuning #####
-# 1000 ms scanning
-$BB echo "1000" > /sys/kernel/mm/uksm/sleep_millisecs
-# medium cpu gov
-$BB echo "medium" > /sys/kernel/mm/uksm/cpu_governor
-########################
 
+IOSCHED_TUNING()
+{
+	for f in /sys/block/mmcblk*/queue;
+	do
+	  echo "zen" > "$f"/scheduler;
+	  TUNABLES="$f"/iosched;
+	  echo "0" > "$f"/nomerges;
+	  echo "512" > "$f"/nr_requests;
+	  echo "1024" > "$f"/read_ahead_kb;
+	  
+	  # zen tunng
+	  echo "2" > "$TUNABLES"/fifo_batch;
+	done;
+}
+IOSCHED_TUNING;
 
-### Set I/O deadline ###
-$BB echo "deadline" > /sys/block/mmcblk0/queue/scheduler
-$BB echo "1024" > /sys/block/mmcblk0/bdi/read_ahead_kb
-$BB echo "2" >  /sys/block/mmcblk0/queue/nomerges
+### LMK tuning ###
+$BB echo "1" > /sys/module/lowmemorykiller/parameters/lmk_fast_run
+
+$BB echo "2" > /sys/module/lowmemorykiller/parameters/debug_level
+
+# Tune entropy
+$BB echo "512" > /proc/sys/kernel/random/read_wakeup_threshold
+
+$BB echo "256" > /proc/sys/kernel/random/write_wakeup_threshold
+
+# Properly calibrate sound-control HP equalizer freqs. Thanks to @AndreiLux <https://www.github.com/AndreiLux>
+
+$BB echo "0x0FF3 0x041E 0x0034 0x1FC8 0xF035 0x040D 0x00D2 0x1F6B 0xF084 0x0409 0x020B 0x1EB8 0xF104 0x0409 0x0406 0x0E08 0x0782 0x2ED8" > /sys/class/misc/arizona_control/eq_A_freqs
+
+$BB echo "0x0C47 0x03F5 0x0EE4 0x1D04 0xF1F7 0x040B 0x07C8 0x187D 0xF3B9 0x040A 0x0EBE 0x0C9E 0xF6C3 0x040A 0x1AC7 0xFBB6 0x0400 0x2ED8" > /sys/class/misc/arizona_control/eq_B_freqs
+
+# Workaround headset out call no sound bug
+$BB echo "1" > /sys/class/misc/arizona_control/switch_eq_hp
 
 # Start any init.d scripts that may be present in the rom or added by the user
 MOUNT_RW;
@@ -72,3 +95,6 @@ $BB chmod -R 755 /system/etc/init.d/
 # Start uci
 MOUNT_RW;
 $BB sh /res/synapse uci
+$BB ln -s /res/synapse/uci /system/xbin/uci
+
+$BB echo "postboot.sh done\n" >> /sdcard/duki994.txt
