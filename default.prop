@@ -13,3 +13,11 @@ dalvik.vm.dex2oat-Xmx=512m
 dalvik.vm.image-dex2oat-Xms=64m
 dalvik.vm.image-dex2oat-Xmx=64m
 ro.dalvik.vm.native.bridge=0
+
+## Additional overrides - Dusan K. ##
+persist.security.ams.enforcing=0
+ro.securestorage.knox=false
+ro.securestorage.support=false
+ro.security.mdpp.ux=Disabled
+wlan.wfd.hdcp=disable
+ro.config.tima=0
